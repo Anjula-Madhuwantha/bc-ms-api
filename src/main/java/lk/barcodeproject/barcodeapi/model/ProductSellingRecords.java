@@ -7,8 +7,8 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "product_quantities")
-public class ProductQuantity {
+@Table(name = "product_selling_records")
+public class ProductSellingRecords {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,6 @@ public class ProductQuantity {
     @ManyToOne
     private Product product;
 
-    private Integer quantity;
-    private LocalDate createdDate;
+    private Boolean isEmpty;
+    private LocalDate sellingDate;
 }

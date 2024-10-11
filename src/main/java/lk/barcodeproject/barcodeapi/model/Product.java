@@ -18,6 +18,8 @@ public class Product {
     private String name;
     private Double purchasePrice;
     private Double sellingPrice;
-    private Integer stockReminder;
+    private Double emptyPrice;
+    private Integer volume;
+    private Integer quantity;
     private LocalDate createdDate;
 }
