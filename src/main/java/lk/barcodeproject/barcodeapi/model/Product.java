@@ -22,4 +22,5 @@ public class Product {
     private Integer volume;
     private Integer quantity;
     private LocalDate createdDate;
+    //todo sample
 }
