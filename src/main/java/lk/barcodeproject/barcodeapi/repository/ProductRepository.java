@@ -1,4 +1,7 @@
 package lk.barcodeproject.barcodeapi.repository;
 
-public interface ProductRepository {
+import lk.barcodeproject.barcodeapi.model.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
 }
