@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 @Service
@@ -43,6 +44,7 @@ public class ProductSellingServiceImpl implements ProductSellingService {
             ProductSellingRecords productSellingRecords = new ProductSellingRecords();
             productSellingRecords.setProduct(product);
             productSellingRecords.setSellingDate(LocalDate.now());
+            productSellingRecords.setSellingTime(LocalTime.now());
             productSellingRecords.setQuantity(1);
 
             if(isEmpty != Boolean.FALSE){
@@ -55,7 +57,7 @@ public class ProductSellingServiceImpl implements ProductSellingService {
                 productSellingRecords.setIsEmpty(Boolean.FALSE);
                 productSellingRepository.save(productSellingRecords);
             }
-            
+
             return productSellingRecords;
 
         } else {

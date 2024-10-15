@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -20,4 +21,5 @@ public class ProductSellingRecords {
     private Integer quantity;
     private Boolean isEmpty;
     private LocalDate sellingDate;
+    private LocalTime sellingTime;
 }
