@@ -20,9 +20,9 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product create(ProductRequest productRequest){
+    public Product create(ProductRequest productRequest) {
 
-        Product  product = modelMapper.map(productRequest, Product.class);
+        Product product = modelMapper.map(productRequest, Product.class);
         LocalDate createdDate = LocalDate.now();
         product.setCreatedDate(createdDate);
         productRepository.save(product);
@@ -54,7 +54,6 @@ public class ProductServiceImpl implements ProductService {
         LocalDate createdDate = LocalDate.now();
         product.setCreatedDate(createdDate);
         product.setId(productId);
-
         productRepository.save(product);
 
         return product;

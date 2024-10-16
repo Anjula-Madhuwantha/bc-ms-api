@@ -15,6 +15,7 @@ public class AppControllerAdviser {
 
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setErrorMessage(exception.getMessage());
+
         return errorResponse;
     }
 }
