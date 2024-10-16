@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -17,6 +18,8 @@ public class ProductSellingRecords {
     @ManyToOne
     private Product product;
 
+    private Integer quantity;
     private Boolean isEmpty;
     private LocalDate sellingDate;
+    private LocalTime sellingTime;
 }

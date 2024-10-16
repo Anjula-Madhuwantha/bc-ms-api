@@ -16,10 +16,11 @@ public class ProductSellingResponse {
 
     @ManyToOne
     private Product product;
-
+    private Integer quantity;
     private Boolean isEmpty;
     private LocalDate sellingDate;
 
-    public void setMessage(String s) {
-    }
+//    public ProductSellingResponse(Long id, Integer quantity) {
+//    }
+
 }

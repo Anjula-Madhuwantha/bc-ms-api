@@ -13,7 +13,7 @@ public class ProductSellingRequest {
     private Long id;
     @ManyToOne
     private Product product;
-
+    private Integer quantity;
     private Boolean isEmpty;
 
 }
