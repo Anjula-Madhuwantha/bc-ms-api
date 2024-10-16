@@ -17,4 +17,12 @@ public interface ProductSellingRepository extends JpaRepository<ProductSellingRe
     String getTotalSalesQuantityForProductInTimeRange(@Param("productId") Long productId,
                                                       @Param("startDate") LocalDate startDate,
                                                       @Param("endDate") LocalDate endDate);
+
+    @Query("SELECT psr.product, SUM(psr.quantity) AS totalSold " +
+            "FROM ProductSellingRecords psr " +
+            "WHERE psr.sellingDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY psr.product " +
+            "ORDER BY totalSold DESC")
+    List<Object[]> findTopSellingProductsBetweenDates(@Param("startDate") LocalDate startDate,
+                                                      @Param("endDate") LocalDate endDate);
 }

@@ -16,4 +16,7 @@ public interface ProductSellingService {
     List<ProductSellingRecords> getSalesBetweenDates(LocalDate startDate, LocalDate endDate);
 
     String getTotalSalesQuantityForProductInTimeRange(Long productId, LocalDate startDate, LocalDate endDate);
+
+    List<Object[]> getTopSellingProductsBetweenDates(LocalDate startDate, LocalDate endDate);
+
 }

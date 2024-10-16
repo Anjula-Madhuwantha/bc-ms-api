@@ -31,7 +31,7 @@ public class ProductSellingController {
         return productSellingResponse;
     }
 
-    @GetMapping(value = "sales", headers = "X-Api-Version=v1")
+    @GetMapping(value = "/sales", headers = "X-Api-Version=v1")
     public ResponseEntity<List<ProductSellingRecords>> getSalesBetweenDates(
 
             @RequestParam("startDate") LocalDate startDate,
@@ -55,5 +55,14 @@ public class ProductSellingController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping(value = "/top-products", headers = "X-Api-Version=v1")
+    public ResponseEntity<List<Object[]>> getTopSellingProducts(
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate) {
+
+        List<Object[]> topSellingProducts = productSellingService.getTopSellingProductsBetweenDates(startDate, endDate);
+        return ResponseEntity.ok(topSellingProducts);
     }
 }

@@ -71,4 +71,9 @@ public class ProductSellingServiceImpl implements ProductSellingService {
 
         return productSellingRepository.getTotalSalesQuantityForProductInTimeRange(productId, startDate, endDate);
     }
+
+    @Override
+    public List<Object[]> getTopSellingProductsBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return productSellingRepository.findTopSellingProductsBetweenDates(startDate, endDate);
+    }
 }
