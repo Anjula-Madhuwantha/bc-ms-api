@@ -19,7 +19,7 @@ public class ProductSellingController {
     private ProductSellingService productSellingService;
     private ModelMapper modelMapper;
 
-    @PostMapping(value = "/sell/{id}", headers = "X-API-VERSION=V1")
+    @PostMapping(value = "/sell/{id}", headers = "X-API-VERSION=v1")
 
     public String sellProduct(@PathVariable Long id)throws ProductNotFoundException {
         productSellingService.recordProductSale(id);
