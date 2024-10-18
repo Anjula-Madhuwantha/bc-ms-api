@@ -65,4 +65,14 @@ public class ProductSellingController {
         List<Object[]> topSellingProducts = productSellingService.getTopSellingProductsBetweenDates(startDate, endDate);
         return ResponseEntity.ok(topSellingProducts);
     }
+
+    @GetMapping(value = "/total-profits", headers = "X-Api-Version=v1")
+    public ResponseEntity<Double> calculateTotalProfit(
+
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate) {
+
+        Double totalProfit = productSellingService.calculateTotalProfit(startDate, endDate);
+        return ResponseEntity.ok(totalProfit);
+    }
 }

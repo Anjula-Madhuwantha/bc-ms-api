@@ -74,6 +74,13 @@ public class ProductSellingServiceImpl implements ProductSellingService {
 
     @Override
     public List<Object[]> getTopSellingProductsBetweenDates(LocalDate startDate, LocalDate endDate) {
+
         return productSellingRepository.findTopSellingProductsBetweenDates(startDate, endDate);
+    }
+
+    @Override
+    public Double calculateTotalProfit(LocalDate startDate, LocalDate endDate) {
+
+        return productSellingRepository.calculateTotalProfit(startDate, endDate);
     }
 }

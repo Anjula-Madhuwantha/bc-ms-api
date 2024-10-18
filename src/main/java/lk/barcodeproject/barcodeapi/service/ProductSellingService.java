@@ -19,4 +19,5 @@ public interface ProductSellingService {
 
     List<Object[]> getTopSellingProductsBetweenDates(LocalDate startDate, LocalDate endDate);
 
+    Double calculateTotalProfit(LocalDate startDate, LocalDate endDate);
 }

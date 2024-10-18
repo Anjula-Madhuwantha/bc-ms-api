@@ -25,4 +25,10 @@ public interface ProductSellingRepository extends JpaRepository<ProductSellingRe
             "ORDER BY totalSold DESC")
     List<Object[]> findTopSellingProductsBetweenDates(@Param("startDate") LocalDate startDate,
                                                       @Param("endDate") LocalDate endDate);
+
+    @Query("SELECT SUM((psr.product.sellingPrice - psr.product.purchasePrice) * psr.quantity) AS totalProfit " +
+            "FROM ProductSellingRecords psr " +
+            "WHERE psr.sellingDate BETWEEN :startDate AND :endDate")
+    Double calculateTotalProfit(@Param("startDate") LocalDate startDate,
+                                @Param("endDate") LocalDate endDate);
 }
