@@ -12,6 +12,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public interface ProductSellingService {
-//    void recordProductSale(Long id) throws ProductNotFoundException;
     ProductSellingRecords recordProductSale(Long id, Boolean isEmpty) throws ProductNotFoundException;
 }
