@@ -3,10 +3,12 @@ package lk.barcodeproject.barcodeapi.service.impl;
 import lk.barcodeproject.barcodeapi.controller.request.ProductRequest;
 import lk.barcodeproject.barcodeapi.exception.ProductNotFoundException;
 import lk.barcodeproject.barcodeapi.model.Product;
+import lk.barcodeproject.barcodeapi.model.ProductSellingRecords;
 import lk.barcodeproject.barcodeapi.repository.ProductRepository;
 import lk.barcodeproject.barcodeapi.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,9 +22,9 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product create(ProductRequest productRequest){
+    public Product create(ProductRequest productRequest) {
 
-        Product  product = modelMapper.map(productRequest, Product.class);
+        Product product = modelMapper.map(productRequest, Product.class);
         LocalDate createdDate = LocalDate.now();
         product.setCreatedDate(createdDate);
         productRepository.save(product);
@@ -54,7 +56,6 @@ public class ProductServiceImpl implements ProductService {
         LocalDate createdDate = LocalDate.now();
         product.setCreatedDate(createdDate);
         product.setId(productId);
-
         productRepository.save(product);
 
         return product;

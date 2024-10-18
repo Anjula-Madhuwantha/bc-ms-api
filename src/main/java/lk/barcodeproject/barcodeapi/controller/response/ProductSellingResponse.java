@@ -1,8 +1,5 @@
 package lk.barcodeproject.barcodeapi.controller.response;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lk.barcodeproject.barcodeapi.model.Product;
 import lombok.Data;
@@ -19,8 +16,4 @@ public class ProductSellingResponse {
     private Integer quantity;
     private Boolean isEmpty;
     private LocalDate sellingDate;
-
-//    public ProductSellingResponse(Long id, Integer quantity) {
-//    }
-
 }
