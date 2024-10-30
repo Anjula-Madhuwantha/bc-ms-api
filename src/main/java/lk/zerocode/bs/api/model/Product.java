@@ -12,14 +12,14 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long productId;
 
     private String barcodeId;
     private String name;
     private Double purchasePrice;
     private Double sellingPrice;
-    private Double emptyPrice;
-    private Integer volume;
+    private Double emptyBottlePrice;
+    private Integer bottleVolume;
     private Integer quantity;
     private LocalDate createdDate;
 }

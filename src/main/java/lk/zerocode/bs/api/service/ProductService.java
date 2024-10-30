@@ -12,10 +12,9 @@ public interface ProductService {
 
     Product create(ProductRequest productRequest);
 
-    //todo change this to findAll()
     List<Product> getAll();
 
-    Product getById(Long productId) throws ProductNotFoundException;
+    Product findById(Long productId) throws ProductNotFoundException;
 
     Product updateById(Long productId, ProductRequest productRequest);
 }

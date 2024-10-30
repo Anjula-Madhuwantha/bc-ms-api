@@ -45,7 +45,7 @@ public class ProductController {
     @GetMapping(value = "/products/{product-id}", headers = "X-Api-Version=v1")
     public ResponseEntity<ProductResponse> getById(@PathVariable("product-id") Long productId) throws ProductNotFoundException {
 
-        Product product = productService.getById(productId);
+        Product product = productService.findById(productId);
         ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
 
         return new ResponseEntity<>(productResponse, HttpStatus.OK);

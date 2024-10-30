@@ -6,9 +6,8 @@ import lombok.Data;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ProductSellingRequest {
-    //todo in request boy it should be as follows product_id
-    private Long productId;
+public class ProductSaleRequest {
+
     private Integer quantity;
     private Boolean emptyBottleReceived;
 }

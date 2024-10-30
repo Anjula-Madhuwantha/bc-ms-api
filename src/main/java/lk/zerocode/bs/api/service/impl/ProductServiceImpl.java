@@ -16,9 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    //change to final
-    private ModelMapper modelMapper;
-    private ProductRepository productRepository;
+    private final ModelMapper modelMapper;
+    private final ProductRepository productRepository;
 
     @Override
     public Product create(ProductRequest productRequest) {
@@ -26,28 +25,21 @@ public class ProductServiceImpl implements ProductService {
         Product product = modelMapper.map(productRequest, Product.class);
         LocalDate createdDate = LocalDate.now();
         product.setCreatedDate(createdDate);
-        productRepository.save(product);
 
-        return product;
+        return productRepository.save(product);
     }
 
     @Override
     public List<Product> getAll() {
 
-        //todo direct return
-        List<Product> productList = productRepository.findAll();
-        return productList;
+        return productRepository.findAll();
     }
 
     @Override
-    public Product getById(Long productId) throws ProductNotFoundException {
+    public Product findById(Long productId) throws ProductNotFoundException {
 
-        //todo direct return
-        Product product = productRepository.findById(productId).orElseThrow(
-                () -> new ProductNotFoundException("Product Not found with id" + productId)
-        );
-
-        return product;
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + productId));
     }
 
     @Override
@@ -55,8 +47,8 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = modelMapper.map(productRequest, Product.class);
         product.setCreatedDate(LocalDate.now());
-        product.setId(productId);
-        productRepository.save(product);
-        return product;
+        product.setProductId(productId);
+
+        return productRepository.save(product);
     }
 }
