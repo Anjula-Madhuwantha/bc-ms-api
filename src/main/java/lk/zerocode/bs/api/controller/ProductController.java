@@ -1,5 +1,6 @@
 package lk.zerocode.bs.api.controller;
 
+import jakarta.validation.Valid;
 import lk.zerocode.bs.api.controller.request.ProductRequest;
 import lk.zerocode.bs.api.controller.response.ProductResponse;
 import lk.zerocode.bs.api.exception.ProductNotFoundException;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +23,13 @@ public class ProductController {
     private final ProductService productService;
     private final ModelMapper modelMapper;
 
+    //todo bindingResult
     @PostMapping(value = "/products", headers = "X-Api-Version=v1")
-    public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest productRequest, BindingResult bindingResult) {
 
+        if(bindingResult.hasErrors()){
+            System.out.println(bindingResult.getFieldError().getDefaultMessage());
+        }
         Product product = productService.create(productRequest);
         ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
 

@@ -4,6 +4,7 @@ import lk.zerocode.bs.api.model.ProductSaleRecord;
 import lk.zerocode.bs.api.projection.ProductSalesQuantityProjection;
 import lk.zerocode.bs.api.projection.ProfitProjection;
 import lk.zerocode.bs.api.projection.TopProductProjection;
+import lk.zerocode.bs.api.projection.TotalSellingPriceProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -51,4 +52,21 @@ public interface ProductSaleRepository extends JpaRepository<ProductSaleRecord, 
     ProfitProjection calculateProfitForProductBetweenDates(@Param("productId") Long productId,
                                                            @Param("startDate") LocalDateTime startDate,
                                                            @Param("endDate") LocalDateTime endDate);
+
+    @Query("SELECT SUM(psr.product.sellingPrice * psr.quantity) AS totalSellingPrice " +
+            "FROM ProductSaleRecord psr " +
+            "WHERE psr.createdOn BETWEEN :startDate AND :endDate")
+    TotalSellingPriceProjection findTotalSellingPriceBetweenDates(
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate
+    );
+
+    @Query("SELECT SUM(psr.quantity * psr.product.sellingPrice) AS totalSellingPrice " +
+            "FROM ProductSaleRecord psr " +
+            "WHERE psr.product.id = :productId " +
+            "AND psr.createdOn BETWEEN :startDate AND :endDate")
+    TotalSellingPriceProjection findTotalSellingPriceForProductBetweenDates(
+            @Param("productId") Long productId,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
 }

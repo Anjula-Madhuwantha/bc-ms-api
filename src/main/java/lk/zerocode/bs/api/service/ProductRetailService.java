@@ -7,6 +7,7 @@ import lk.zerocode.bs.api.model.ProductSaleRecord;
 import lk.zerocode.bs.api.projection.ProductSalesQuantityProjection;
 import lk.zerocode.bs.api.projection.ProfitProjection;
 import lk.zerocode.bs.api.projection.TopProductProjection;
+import lk.zerocode.bs.api.projection.TotalSellingPriceProjection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,4 +30,8 @@ public interface ProductRetailService {
     ProfitProjection calculateTotalProfitBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
 
     ProfitProjection calculateProfitForProductBetweenDates(Long productId, LocalDateTime startDate, LocalDateTime endDate);
+
+    TotalSellingPriceProjection getTotalSellingPriceBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
+
+    TotalSellingPriceProjection getTotalSellingPriceForProductBetweenDates(Long productId, LocalDateTime startDate, LocalDateTime endDate);
 }

@@ -7,6 +7,7 @@ import lk.zerocode.bs.api.model.ProductSaleRecord;
 import lk.zerocode.bs.api.projection.ProductSalesQuantityProjection;
 import lk.zerocode.bs.api.projection.ProfitProjection;
 import lk.zerocode.bs.api.projection.TopProductProjection;
+import lk.zerocode.bs.api.projection.TotalSellingPriceProjection;
 import lk.zerocode.bs.api.repository.ProductRepository;
 import lk.zerocode.bs.api.repository.ProductSaleRepository;
 import lk.zerocode.bs.api.service.ProductRetailService;
@@ -84,5 +85,17 @@ public class ProductRetailServiceImpl implements ProductRetailService {
     public ProfitProjection calculateProfitForProductBetweenDates(Long productId, LocalDateTime startDate, LocalDateTime endDate) {
 
         return productSellingRepository.calculateProfitForProductBetweenDates(productId, startDate, endDate);
+    }
+
+    @Override
+    public TotalSellingPriceProjection getTotalSellingPriceBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+
+        return productSellingRepository.findTotalSellingPriceBetweenDates(startDate, endDate);
+    }
+
+    @Override
+    public TotalSellingPriceProjection getTotalSellingPriceForProductBetweenDates(Long productId, LocalDateTime startDate, LocalDateTime endDate) {
+
+        return productSellingRepository.findTotalSellingPriceForProductBetweenDates(productId, startDate, endDate);
     }
 }

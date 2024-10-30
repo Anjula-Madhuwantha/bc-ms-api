@@ -7,6 +7,7 @@ import lk.zerocode.bs.api.model.ProductSaleRecord;
 import lk.zerocode.bs.api.projection.ProductSalesQuantityProjection;
 import lk.zerocode.bs.api.projection.ProfitProjection;
 import lk.zerocode.bs.api.projection.TopProductProjection;
+import lk.zerocode.bs.api.projection.TotalSellingPriceProjection;
 import lk.zerocode.bs.api.service.ProductRetailService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -79,5 +80,26 @@ public class ProductRetailController {
         ProfitProjection profitProjection = productSellingService.calculateProfitForProductBetweenDates(productId, startDate, endDate);
 
         return profitProjection != null ? profitProjection.getTotalProfit() : 0.0;
+    }
+
+    @GetMapping(value = "/total-selling-prices", headers = "X-Api-Version=v1")
+    public Double getTotalSellingPriceBetweenDates (
+            @RequestParam("startDate") LocalDateTime startDate,
+            @RequestParam("endDate") LocalDateTime endDate) {
+
+        TotalSellingPriceProjection totalSellingPriceProjection = productSellingService.getTotalSellingPriceBetweenDates(startDate, endDate);
+
+        return totalSellingPriceProjection != null ? totalSellingPriceProjection.getTotalSellingPrice() : 0.0;
+    }
+
+    @GetMapping(value = "/total-selling-prices/{productId}", headers = "X-Api-Version=v1")
+    public Double getTotalSellingPriceForProductBetweenDates (
+            @PathVariable  Long productId,
+            @RequestParam("startDate") LocalDateTime  startDate,
+            @RequestParam("endDate") LocalDateTime endDate) {
+
+        TotalSellingPriceProjection totalSellingPriceProjection = productSellingService.getTotalSellingPriceForProductBetweenDates(productId, startDate, endDate);
+
+        return totalSellingPriceProjection != null ? totalSellingPriceProjection.getTotalSellingPrice() : 0.0;
     }
 }
