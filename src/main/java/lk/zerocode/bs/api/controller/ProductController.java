@@ -25,11 +25,8 @@ public class ProductController {
 
     //todo bindingResult
     @PostMapping(value = "/products", headers = "X-Api-Version=v1")
-    public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest productRequest, BindingResult bindingResult) {
+    public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest) {
 
-        if(bindingResult.hasErrors()){
-            System.out.println(bindingResult.getFieldError().getDefaultMessage());
-        }
         Product product = productService.create(productRequest);
         ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
 
