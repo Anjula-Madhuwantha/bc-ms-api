@@ -23,13 +23,13 @@ import java.util.Optional;
 
 public class ProductRetailController {
 
-    private final ProductRetailService productSellingService;
+    private final ProductRetailService productRetailService;
     private final ModelMapper modelMapper;
 
     @PostMapping(value = "/products/{product-id}/sales", headers = "X-Api-Version=v1")
     public ResponseEntity<ProductSaleResponse> sellProductItem(@PathVariable("product-id") Long sellingId, ProductSaleRequest productSaleRequest) throws RetailTransactionNotCreatedException {
 
-        ProductSaleRecord productSaleRecord = productSellingService.recordProductSale(sellingId, productSaleRequest);
+        ProductSaleRecord productSaleRecord = productRetailService.recordProductSale(sellingId, productSaleRequest);
         return ResponseEntity.ok(modelMapper.map(productSaleRecord, ProductSaleResponse.class));
     }
 
@@ -38,7 +38,7 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime endDate) {
 
-        List<ProductSaleRecord> sales = productSellingService.findSalesBetweenDates(startDate, endDate);
+        List<ProductSaleRecord> sales = productRetailService.findSalesBetweenDates(startDate, endDate);
 
         return ResponseEntity.ok(sales);
     }
@@ -49,7 +49,7 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime endDate) {
 
-        return productSellingService.findTotalQuantitySoldForProductBetweenDates(productId, startDate, endDate);
+        return productRetailService.findTotalQuantitySoldForProductBetweenDates(productId, startDate, endDate);
     }
 
     @GetMapping(value = "/sales/top-products", headers = "X-Api-Version=v1")
@@ -57,7 +57,7 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime endDate) {
 
-        return productSellingService.findTopSellingProductsBetweenDates(startDate, endDate);
+        return productRetailService.findTopSellingProductsBetweenDates(startDate, endDate);
     }
 
     @GetMapping(value = "/total-profits", headers = "X-Api-Version=v1")
@@ -65,7 +65,7 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime endDate) {
 
-        ProfitProjection profitProjection = productSellingService.calculateTotalProfitBetweenDates(startDate, endDate);
+        ProfitProjection profitProjection = productRetailService.calculateTotalProfitBetweenDates(startDate, endDate);
 
         return profitProjection != null ? profitProjection.getTotalProfit() : 0.0;
     }
@@ -76,7 +76,7 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime  endDate) {
 
-        return Optional.ofNullable(productSellingService.calculateProfitForProductBetweenDates(productId, startDate, endDate))
+        return Optional.ofNullable(productRetailService.calculateProfitForProductBetweenDates(productId, startDate, endDate))
                 .map(ProfitProjection::getTotalProfit)
                 .orElse(0.0);
     }
@@ -86,7 +86,7 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime endDate) {
 
-        return Optional.ofNullable(productSellingService.getTotalSellingPriceBetweenDates(startDate, endDate))
+        return Optional.ofNullable(productRetailService.getTotalSellingPriceBetweenDates(startDate, endDate))
                 .map(TotalSellingPriceProjection::getTotalSellingPrice)
                 .orElse(0.0);
     }
@@ -97,7 +97,7 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime  startDate,
             @RequestParam("endDate") LocalDateTime endDate) {
 
-        return Optional.ofNullable(productSellingService.getTotalSellingPriceForProductBetweenDates(productId, startDate, endDate))
+        return Optional.ofNullable(productRetailService.getTotalSellingPriceForProductBetweenDates(productId, startDate, endDate))
                 .map(TotalSellingPriceProjection::getTotalSellingPrice)
                 .orElse(0.0);
     }

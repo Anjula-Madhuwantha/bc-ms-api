@@ -7,9 +7,12 @@ import lk.zerocode.bs.api.repository.ProductRepository;
 import lk.zerocode.bs.api.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,9 +33,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAll() {
+    public List<Product> findAll(Pageable pageable) {
 
-        return productRepository.findAll();
+        Page<Product> productPage = productRepository.findAll(pageable);
+        System.out.println("total pages : " + productPage.getTotalPages());
+        System.out.println("current page : "  + productPage.getNumber());
+        System.out.println("page size " + productPage.getNumberOfElements());
+
+        return productPage.getContent();
     }
 
     @Override
