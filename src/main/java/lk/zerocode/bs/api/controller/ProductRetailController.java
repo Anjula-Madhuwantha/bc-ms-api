@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -26,12 +27,10 @@ public class ProductRetailController {
     private final ModelMapper modelMapper;
 
     @PostMapping(value = "/products/{product-id}/sales", headers = "X-Api-Version=v1")
-    public ProductSaleResponse sellProductItem(@PathVariable("product-id") Long sellingId, ProductSaleRequest productSaleRequest) throws RetailTransactionNotCreatedException {
+    public ResponseEntity<ProductSaleResponse> sellProductItem(@PathVariable("product-id") Long sellingId, ProductSaleRequest productSaleRequest) throws RetailTransactionNotCreatedException {
 
         ProductSaleRecord productSaleRecord = productSellingService.recordProductSale(sellingId, productSaleRequest);
-
-        ProductSaleResponse productSaleResponse = modelMapper.map(productSaleRecord, ProductSaleResponse.class);
-        return productSaleResponse;
+        return ResponseEntity.ok(modelMapper.map(productSaleRecord, ProductSaleResponse.class));
     }
 
     @GetMapping(value = "/sales", headers = "X-Api-Version=v1")
@@ -77,9 +76,9 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime  endDate) {
 
-        ProfitProjection profitProjection = productSellingService.calculateProfitForProductBetweenDates(productId, startDate, endDate);
-
-        return profitProjection != null ? profitProjection.getTotalProfit() : 0.0;
+        return Optional.ofNullable(productSellingService.calculateProfitForProductBetweenDates(productId, startDate, endDate))
+                .map(ProfitProjection::getTotalProfit)
+                .orElse(0.0);
     }
 
     @GetMapping(value = "/total-selling-prices", headers = "X-Api-Version=v1")
@@ -87,9 +86,9 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime endDate) {
 
-        TotalSellingPriceProjection totalSellingPriceProjection = productSellingService.getTotalSellingPriceBetweenDates(startDate, endDate);
-
-        return totalSellingPriceProjection != null ? totalSellingPriceProjection.getTotalSellingPrice() : 0.0;
+        return Optional.ofNullable(productSellingService.getTotalSellingPriceBetweenDates(startDate, endDate))
+                .map(TotalSellingPriceProjection::getTotalSellingPrice)
+                .orElse(0.0);
     }
 
     @GetMapping(value = "/total-selling-prices/{productId}", headers = "X-Api-Version=v1")
@@ -98,8 +97,8 @@ public class ProductRetailController {
             @RequestParam("startDate") LocalDateTime  startDate,
             @RequestParam("endDate") LocalDateTime endDate) {
 
-        TotalSellingPriceProjection totalSellingPriceProjection = productSellingService.getTotalSellingPriceForProductBetweenDates(productId, startDate, endDate);
-
-        return totalSellingPriceProjection != null ? totalSellingPriceProjection.getTotalSellingPrice() : 0.0;
+        return Optional.ofNullable(productSellingService.getTotalSellingPriceForProductBetweenDates(productId, startDate, endDate))
+                .map(TotalSellingPriceProjection::getTotalSellingPrice)
+                .orElse(0.0);
     }
 }

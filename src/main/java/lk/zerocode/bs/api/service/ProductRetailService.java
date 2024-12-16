@@ -2,7 +2,6 @@ package lk.zerocode.bs.api.service;
 
 import lk.zerocode.bs.api.controller.request.ProductSaleRequest;
 import lk.zerocode.bs.api.exception.RetailTransactionNotCreatedException;
-import lk.zerocode.bs.api.model.Product;
 import lk.zerocode.bs.api.model.ProductSaleRecord;
 import lk.zerocode.bs.api.projection.ProductSalesQuantityProjection;
 import lk.zerocode.bs.api.projection.ProfitProjection;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-//todo change this to ProductRetailService / RetailTransactionService
 @Service
 public interface ProductRetailService {
 
