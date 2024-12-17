@@ -32,12 +32,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll(Pageable pageable) {
+    public List<Product> findAllByCreatedDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable) {
 
-        Page<Product> productPage = productRepository.findAll(pageable);
-        System.out.println("total pages : " + productPage.getTotalPages());
-        System.out.println("current page : "  + productPage.getNumber());
-        System.out.println("page size " + productPage.getNumberOfElements());
+        Page<Product> productPage = productRepository.findAllByCreatedDateBetween(startDate, endDate, pageable);
+
+        System.out.println("Total pages: " + productPage.getTotalPages());
+        System.out.println("Current page: " + productPage.getNumber());
+        System.out.println("Page size: " + productPage.getNumberOfElements());
 
         return productPage.getContent();
     }
