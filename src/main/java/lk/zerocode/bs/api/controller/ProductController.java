@@ -8,9 +8,12 @@ import lk.zerocode.bs.api.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,11 +32,17 @@ public class ProductController {
     }
 
     @GetMapping(value = "/products", headers = "X-Api-Version=v1")
-    public ResponseEntity<List<ProductResponse>> findAll(
+    public ResponseEntity<List<ProductResponse>> findAllByBetweenDates(
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate,
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size
     ) {
-        List<Product> productList = productService.findAll(PageRequest.of(page, size));
+        Sort sort = Sort.by(Sort.Direction.ASC, "createdDate");
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        List<Product> productList = productService.findAllByCreatedDateBetween(startDate, endDate, pageable);
 
         List<ProductResponse> responseList = productList.stream()
                 .map(product -> modelMapper.map(product, ProductResponse.class))
