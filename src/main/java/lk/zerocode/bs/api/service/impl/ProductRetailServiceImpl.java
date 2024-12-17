@@ -23,8 +23,7 @@ import java.util.List;
 public class ProductRetailServiceImpl implements ProductRetailService {
 
     private final ProductRepository productRepository;
-
-    private final ProductSaleRepository productSellingRepository;
+    private final ProductSaleRepository productSaleRepository;
 
     @Transactional(rollbackFor = {RuntimeException.class, Exception.class})
     @Override
@@ -45,10 +44,10 @@ public class ProductRetailServiceImpl implements ProductRetailService {
             if ( productSaleRequest.getEmptyBottleReceived()!= Boolean.FALSE) {
 
                 productSellingRecords.setEmptyBottleReceived(Boolean.TRUE);
-                productSellingRepository.save(productSellingRecords);
+                productSaleRepository.save(productSellingRecords);
             } else {
                 productSellingRecords.setEmptyBottleReceived(Boolean.FALSE);
-                productSellingRepository.save(productSellingRecords);
+                productSaleRepository.save(productSellingRecords);
             }
 
             return productSellingRecords;
@@ -60,42 +59,42 @@ public class ProductRetailServiceImpl implements ProductRetailService {
 
     @Override
     public List<ProductSaleRecord> findSalesBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-        return productSellingRepository.findSalesBetweenDates(startDate, endDate);
+        return productSaleRepository.findSalesBetweenDates(startDate, endDate);
     }
 
     @Override
     public ProductSalesQuantityProjection findTotalQuantitySoldForProductBetweenDates(Long productId, LocalDateTime startDate, LocalDateTime endDate) {
 
-        return productSellingRepository.findTotalQuantitySoldForProductBetweenDates(productId, startDate, endDate);
+        return productSaleRepository.findTotalQuantitySoldForProductBetweenDates(productId, startDate, endDate);
     }
 
     @Override
     public List<TopProductProjection> findTopSellingProductsBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
 
-        return productSellingRepository.findTopSellingProductsBetweenDates(startDate, endDate);
+        return productSaleRepository.findTopSellingProductsBetweenDates(startDate, endDate);
     }
 
     @Override
     public ProfitProjection calculateTotalProfitBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
 
-        return productSellingRepository.calculateTotalProfitBetweenDates(startDate, endDate);
+        return productSaleRepository.calculateTotalProfitBetweenDates(startDate, endDate);
     }
 
     @Override
     public ProfitProjection calculateProfitForProductBetweenDates(Long productId, LocalDateTime startDate, LocalDateTime endDate) {
 
-        return productSellingRepository.calculateProfitForProductBetweenDates(productId, startDate, endDate);
+        return productSaleRepository.calculateProfitForProductBetweenDates(productId, startDate, endDate);
     }
 
     @Override
     public TotalSellingPriceProjection getTotalSellingPriceBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
 
-        return productSellingRepository.findTotalSellingPriceBetweenDates(startDate, endDate);
+        return productSaleRepository.findTotalSellingPriceBetweenDates(startDate, endDate);
     }
 
     @Override
     public TotalSellingPriceProjection getTotalSellingPriceForProductBetweenDates(Long productId, LocalDateTime startDate, LocalDateTime endDate) {
 
-        return productSellingRepository.findTotalSellingPriceForProductBetweenDates(productId, startDate, endDate);
+        return productSaleRepository.findTotalSellingPriceForProductBetweenDates(productId, startDate, endDate);
     }
 }

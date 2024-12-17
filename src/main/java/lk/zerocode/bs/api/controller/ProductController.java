@@ -7,6 +7,7 @@ import lk.zerocode.bs.api.model.Product;
 import lk.zerocode.bs.api.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +29,11 @@ public class ProductController {
     }
 
     @GetMapping(value = "/products", headers = "X-Api-Version=v1")
-    public ResponseEntity<List<ProductResponse>> getAll(
+    public ResponseEntity<List<ProductResponse>> findAll(
+            @RequestParam("page") Integer page,
+            @RequestParam("size") Integer size
     ) {
-        List<Product> productList = productService.getAll();
+        List<Product> productList = productService.findAll(PageRequest.of(page, size));
 
         List<ProductResponse> responseList = productList.stream()
                 .map(product -> modelMapper.map(product, ProductResponse.class))
